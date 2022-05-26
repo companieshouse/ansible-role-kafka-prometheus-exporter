@@ -1,3 +1,3 @@
-# ansible-role-repository-template
+# ansible-role-kafka-prometheus-exporter
 
-A template repository to be used for setting up Ansible roles
+An Ansible role for installing the Kafka Prometheus Exporter used for collecting cluster metrics
