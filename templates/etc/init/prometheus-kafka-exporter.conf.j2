@@ -1,0 +1,10 @@
+# Run prometheus kafka_exporter
+description "Kafka_exporter"
+start on stopped rc RUNLEVEL=[2345]
+stop on runlevel [06]
+
+exec {{ prometheus_bin_dir }}/kafka_exporter --kafka.server=localhost:9092 --kafka.version={{ kafka_version }} >>/var/log/prometheus-kafka-exporter.log 2>&1
+
+respawn
+respawn limit 10 10
+kill timeout 10
