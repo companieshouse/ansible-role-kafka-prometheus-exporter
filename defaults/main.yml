@@ -3,9 +3,9 @@
 kafka_exporter_tar_gz_url: "https://s3-eu-west-1.amazonaws.com/ch-public-files/{{ kafka_exporter_dir_path }}.tar.gz"
 kafka_exporter_dir_path: "kafka_exporter-{{ kafka_exporter_version }}.linux-amd64"
 
-kafka_exporter_init_dir: /etc/init
+kafka_exporter_systemd_dir: /lib/systemd/system
 kafka_exporter_version: 1.4.2
-kafka_version: 0.10.0.1
+kafka_version: 0.11.0.0
 
 prometheus_root_dir: /opt/prometheus
 prometheus_dist_dir: "{{ prometheus_root_dir }}/dist"

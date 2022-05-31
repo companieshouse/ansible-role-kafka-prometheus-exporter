@@ -1,42 +1,50 @@
 ---
 
+- name: Check if {{ prometheus_root_dir }} directory exists
+  stat:
+    path: "{{ prometheus_root_dir }}"
+  register: directory_exists
+
+- import_tasks: configure-directories.yml
+  when: directory_exists.stat.exists == false
+
 - name: Download Prometheus Kafka exporter
+  become: yes
   get_url:
     url: "{{ kafka_exporter_tar_gz_url }}"
     dest: "{{ prometheus_dist_dir }}"
     validate_certs: no
 
 - name: Extract {{ kafka_exporter_dir_path }}.tar.gz into {{ prometheus_dist_dir }}
+  become: yes
   unarchive:
     src: "{{ prometheus_dist_dir }}/{{ kafka_exporter_dir_path }}.tar.gz"
     dest: "{{ prometheus_dist_dir }}"
     remote_src: yes
 
 - name: Delete "{{ prometheus_dist_dir }}/{{ kafka_exporter_dir_path }}.tar.gz"
+  become: yes
   file:
     path: "{{ prometheus_dist_dir }}/{{ kafka_exporter_dir_path }}.tar.gz"
     state: absent
 
 - name: Symlink to Prometheus Kafka exporter binary
+  become: yes
   file:
     src: "{{ prometheus_dist_dir }}/{{ kafka_exporter_dir_path }}/kafka_exporter"
     dest: "{{ prometheus_bin_dir }}/kafka_exporter"
     state: link
 
-- name: Create Prometheus Kafka exporter upstart init file
+- name: Create Prometheus Kafka exporter systemd service file
+  become: yes
   template:
-    src: "{{ kafka_exporter_init_dir | regex_replace('^\\/', '') }}/{{ service_name }}.conf.j2"
-    dest: "{{ kafka_exporter_init_dir }}/{{ service_name }}.conf"
-    owner: root
-    group: root
-    mode: 0444
-  notify:
-    - Restart "{{ service_name }}"
-
-- meta: flush_handlers
+    src: templates/{{ service_name }}.service.j2
+    dest: "{{ kafka_exporter_systemd_dir }}/{{ service_name }}.service"
 
 - name: Enable {{ service_name }} service
-  service:
+  become: yes
+  systemd:
+    daemon_reload: yes
     name: "{{ service_name }}"
     enabled: yes
     state: started
