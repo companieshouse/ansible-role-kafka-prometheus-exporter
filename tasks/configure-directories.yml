@@ -26,12 +26,3 @@
     owner: root
     group: root
     mode: '0755'
-
-- name: Create {{ kafka_exporter_init_dir }}/bin directory
-  become: yes
-  file:
-    name: "{{ kafka_exporter_init_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'
