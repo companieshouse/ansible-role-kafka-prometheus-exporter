@@ -1,0 +1,14 @@
+---
+
+- name: Configure Directories
+  become: yes
+  file:
+    name: "{{ item.name }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0775'
+  with_items:
+    - name: "{{ prometheus_root_dir }}"
+    - name: "{{ prometheus_dist_dir }}"
+    - name: "{{ prometheus_bin_dir }}"

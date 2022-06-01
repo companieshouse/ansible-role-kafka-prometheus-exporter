@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus Kafka exporter service
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart={{ prometheus_bin_dir }}/kafka_exporter \
+    --kafka.server=localhost:9092 \
+    --kafka.version={{ kafka_version }}
+
+[Install]
+WantedBy=multi-user.target
