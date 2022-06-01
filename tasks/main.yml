@@ -41,10 +41,10 @@
     src: templates/{{ service_name }}.service.j2
     dest: "{{ kafka_exporter_systemd_dir }}/{{ service_name }}.service"
 
-- name: Enable {{ service_name }} service
+- name: Configure {{ service_name }} service
   become: yes
   systemd:
     daemon_reload: yes
     name: "{{ service_name }}"
-    enabled: yes
+    enabled: "{{ service_enabled }}"
     state: started

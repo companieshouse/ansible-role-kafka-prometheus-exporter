@@ -8,7 +8,8 @@ kafka_exporter_version: 1.4.2
 kafka_version: 3.1.0
 
 prometheus_root_dir: /opt/prometheus
-prometheus_dist_dir: "{{ prometheus_root_dir }}/dist"
 prometheus_bin_dir: "{{ prometheus_root_dir }}/bin"
+prometheus_dist_dir: "{{ prometheus_root_dir }}/dist"
 
+service_enabled: no
 service_name: prometheus-kafka-exporter

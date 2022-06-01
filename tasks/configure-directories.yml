@@ -1,28 +1,14 @@
 ---
 
-- name: Create {{ prometheus_root_dir }} directory
+- name: Configure Directories
   become: yes
   file:
-    name: "{{ prometheus_root_dir }}"
+    name: "{{ item.name }}"
     state: directory
     owner: root
     group: root
     mode: '0775'
-
-- name: Create {{ prometheus_dist_dir }} directory
-  become: yes
-  file:
-    name: "{{ prometheus_dist_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'
-
-- name: Create {{ prometheus_bin_dir }}/bin directory
-  become: yes
-  file:
-    name: "{{ prometheus_bin_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'
+  with_items:
+    - name: "{{ prometheus_root_dir }}"
+    - name: "{{ prometheus_dist_dir }}"
+    - name: "{{ prometheus_bin_dir }}"
