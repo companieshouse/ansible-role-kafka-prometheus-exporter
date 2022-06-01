@@ -11,4 +11,5 @@ prometheus_root_dir: /opt/prometheus
 prometheus_dist_dir: "{{ prometheus_root_dir }}/dist"
 prometheus_bin_dir: "{{ prometheus_root_dir }}/bin"
 
+service_enabled: yes
 service_name: prometheus-kafka-exporter

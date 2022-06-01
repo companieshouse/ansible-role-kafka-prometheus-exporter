@@ -46,5 +46,5 @@
   systemd:
     daemon_reload: yes
     name: "{{ service_name }}"
-    enabled: yes
+    enabled: "{{ service_enabled }}"
     state: started
