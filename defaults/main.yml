@@ -13,3 +13,7 @@ prometheus_dist_dir: "{{ prometheus_root_dir }}/dist"
 
 service_enabled: no
 service_name: prometheus-kafka-exporter
+service_restart: always
+service_restart_sec: 30
+service_start_limit_burst: 3
+service_start_limit_interval: 10

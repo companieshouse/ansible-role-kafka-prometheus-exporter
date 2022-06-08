@@ -1,5 +1,7 @@
 [Unit]
 Description=Prometheus Kafka exporter service
+StartLimitBurst={{ service_start_limit_burst }}
+StartLimitInterval={{ service_start_limit_interval }}
 
 [Service]
 User=root
@@ -8,6 +10,8 @@ Type=simple
 ExecStart={{ prometheus_bin_dir }}/kafka_exporter \
     --kafka.server=localhost:9092 \
     --kafka.version={{ kafka_version }}
+Restart={{ service_restart }}
+RestartSec={{ service_restart_sec }}
 
 [Install]
 WantedBy=multi-user.target
